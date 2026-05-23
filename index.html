@@ -523,6 +523,54 @@
     .field input::placeholder,
     .field textarea::placeholder { color: var(--text3); }
 
+    /* ── CARD PHOTO ── */
+    .card-photo {
+      width: calc(100% + 3.5rem);
+      margin: -2rem -1.75rem 1.5rem;
+      height: 180px;
+      object-fit: cover;
+      object-position: center 40%;
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: block;
+    }
+
+    .card-address {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      margin-top: 1rem;
+      padding: .75rem 1rem;
+      background: rgba(196,168,130,.05);
+      border: 1px solid rgba(196,168,130,.15);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: border-color .2s;
+    }
+
+    .card-address:hover { border-color: rgba(196,168,130,.4); }
+
+    .card-address svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+
+    .card-address-text {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+
+    .card-address-text span {
+      font-size: .67rem;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .card-address-text strong {
+      font-size: .8rem;
+      font-weight: 400;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--surface);
@@ -697,6 +745,7 @@
 
     <div class="cards">
       <div class="card fade">
+        <img src="consultorio.jpg" alt="Consultório Jardel Santiago" class="card-photo">
         <div class="card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -704,9 +753,12 @@
         </div>
         <h3>Psicoterapia Presencial</h3>
         <p>Acompanhamento psicológico em consultório com sessões semanais. Um espaço de escuta, reflexão e transformação pessoal com base na TCC.</p>
-        <a href="https://maps.app.goo.gl/LpjQw48a7sN3WPpu5" target="_blank" rel="noopener" class="chip" style="text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          Ver localização
+        <a href="https://maps.app.goo.gl/LpjQw48a7sN3WPpu5" target="_blank" rel="noopener" class="card-address">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <div class="card-address-text">
+            <span>Consultório</span>
+            <strong>Av. Dom Luís, 1200 — Sala 1919 · Torre 2<br>Meireles, Fortaleza — CE</strong>
+          </div>
         </a>
       </div>
 
@@ -718,8 +770,8 @@
           </svg>
         </div>
         <h3>Psicoterapia Online</h3>
-        <p>Psicoterapia via videoconferência com a mesma qualidade e sigilo do atendimento presencial. Atendo adultos em todo o Brasil.</p>
-        <span class="chip">Online · Todo o Brasil</span>
+        <p>Psicoterapia via videoconferência com a mesma qualidade e sigilo do atendimento presencial. Atendo adultos no Brasil e no exterior.</p>
+        <span class="chip">Online · Brasil e Exterior</span>
       </div>
 
       <div class="card fade">
@@ -772,6 +824,18 @@
             <div class="clink-body">
               <span>WhatsApp</span>
               <strong>(85) 99439-4944</strong>
+            </div>
+          </a>
+
+          <a href="https://maps.app.goo.gl/LpjQw48a7sN3WPpu5" class="clink" target="_blank" rel="noopener">
+            <div class="clink-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </div>
+            <div class="clink-body">
+              <span>Consultório</span>
+              <strong>Av. Dom Luís, 1200 — Sala 1919 · Torre 2, Meireles · Fortaleza — CE</strong>
             </div>
           </a>
 
