@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jardel Santiago — Psicólogo Clínico | TCC</title>
+  <title>Jardel Santiago | Psicólogo Clínico TCC</title>
   <meta name="description" content="Psicólogo clínico especialista em Terapia Cognitivo Comportamental (TCC). Atendimento presencial e online para adultos. Jardel Santiago.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,6 +96,83 @@
     .nav-cta:hover {
       background: var(--accent);
       color: #1a1208;
+    }
+
+    /* hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      height: 1.5px;
+      background: var(--text2);
+      border-radius: 2px;
+      transition: transform .25s, opacity .25s, background .2s;
+    }
+
+    .nav-hamburger:hover span { background: var(--accent); }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* mobile menu drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 99;
+      padding: 5rem 1.5rem 2rem;
+      background: rgba(15,14,13,.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      gap: 0;
+      transform: translateY(-100%);
+      transition: transform .3s ease;
+    }
+
+    .nav-drawer.open { transform: none; }
+
+    .nav-drawer li { list-style: none; }
+
+    .nav-drawer a {
+      display: block;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text2);
+      text-decoration: none;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      transition: color .2s;
+    }
+
+    .nav-drawer a:hover { color: var(--accent); }
+
+    .nav-drawer .drawer-cta {
+      margin-top: 1.5rem;
+      display: block;
+      text-align: center;
+      padding: .875rem;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      color: var(--accent);
+      font-size: .85rem;
+      letter-spacing: .05em;
+      text-transform: none;
+      border-bottom: 1px solid var(--accent);
     }
 
     /* ── HERO ── */
@@ -435,13 +512,6 @@
     }
 
     /* ── CONTACT ── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -490,39 +560,6 @@
       color: var(--text);
     }
 
-    /* form */
-    .form { display: flex; flex-direction: column; gap: .875rem; }
-
-    .field { display: flex; flex-direction: column; gap: .35rem; }
-
-    .field label {
-      font-size: .72rem;
-      color: var(--text2);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .field input,
-    .field textarea {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: .75rem 1rem;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: .9rem;
-      font-weight: 300;
-      outline: none;
-      resize: vertical;
-      transition: border-color .2s;
-    }
-
-    .field input:focus,
-    .field textarea:focus { border-color: var(--accent); }
-
-    .field input::placeholder,
-    .field textarea::placeholder { color: var(--text3); }
-
     /* ── FOOTER ── */
     footer {
       background: var(--surface);
@@ -560,6 +597,9 @@
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-drawer { display: flex; }
       .section { padding: 5rem 1.5rem; }
       .sep { margin: 0 1.5rem; }
       .hero {
@@ -570,8 +610,7 @@
       .hero-actions { justify-content: center; }
       .hero-photo-wrap { order: -1; }
       .hero-photo-frame { max-width: 260px; margin: 0 auto; }
-      .about-grid,
-      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .cards { grid-template-columns: 1fr; }
       .services-head { flex-direction: column; align-items: flex-start; }
       footer { padding: 2rem 1.5rem; }
@@ -590,7 +629,17 @@
     <li><a href="#contato">Contato</a></li>
   </ul>
   <a href="#contato" class="nav-cta">Agendar consulta</a>
+  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<ul class="nav-drawer" id="nav-drawer">
+  <li><a href="#sobre" onclick="closeMenu()">Sobre</a></li>
+  <li><a href="#servicos" onclick="closeMenu()">Serviços</a></li>
+  <li><a href="#contato" onclick="closeMenu()">Contato</a></li>
+  <li><a href="#contato" class="drawer-cta" onclick="closeMenu()">Agendar consulta</a></li>
+</ul>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero" id="inicio">
@@ -600,7 +649,7 @@
       Jardel<br><em>Santiago</em>
     </h1>
     <p class="hero-sub">
-      Mais do que apenas suportar a vida, acredito na possibilidade de vivê-la com mais consciência, equilíbrio e verdade.
+      Mais do que atravessar a vida, é possível viver com mais consciência, equilíbrio e intenção.
     </p>
     <div class="hero-actions">
       <a href="#contato" class="btn-primary">Agendar uma conversa</a>
@@ -609,7 +658,7 @@
   </div>
   <div class="hero-photo-wrap">
     <div class="hero-photo-frame">
-      <img src="jardel.png" alt="Jardel Santiago — Psicólogo Clínico">
+      <img src="jardel.png" alt="Jardel Santiago, Psicólogo Clínico">
     </div>
   </div>
   <div class="scroll-hint">
@@ -630,13 +679,16 @@
         <p class="tag">Sobre mim</p>
         <h2 class="section-title">Um processo que<br><em>transforma</em></h2>
         <p class="about-text">
-          Sou psicólogo clínico e atuo com Terapia Cognitivo Comportamental (TCC).
+          Atendo adultos em sofrimento emocional e em busca de crescimento.
         </p>
         <p class="about-text">
-          Trabalho um processo terapêutico acolhedor, mas também objetivo. Um espaço para compreender padrões, reorganizar pensamentos, fortalecer relações e construir mudanças reais.
+          Sou psicólogo clínico especialista em Terapia Cognitivo Comportamental (TCC), com formação reconhecida nacional e internacionalmente.
         </p>
         <p class="about-text">
-          Mais do que apenas suportar a vida, acredito na possibilidade de vivê-la com mais consciência, equilíbrio e verdade.
+          Atendo adultos que estão enfrentando sofrimento emocional: ansiedade, depressão, crises, padrões que se repetem. E também pessoas que querem crescer, tomar decisões melhores e construir uma vida mais intencional.
+        </p>
+        <p class="about-text">
+          O processo terapêutico que ofereço é acolhedor e objetivo. Trabalhamos juntos para entender o que está acontecendo, reorganizar pensamentos e construir mudanças reais.
         </p>
       </div>
 
@@ -649,7 +701,7 @@
           </div>
           <div class="feat-text">
             <h4>Especialista em TCC</h4>
-            <p>Terapia Cognitivo Comportamental baseada em evidências científicas</p>
+            <p>Formação com reconhecimento nacional e internacional.</p>
           </div>
         </div>
 
@@ -718,8 +770,8 @@
           </svg>
         </div>
         <h3>Psicoterapia Online</h3>
-        <p>Psicoterapia via videoconferência com a mesma qualidade e sigilo do atendimento presencial. Atendo adultos em todo o Brasil.</p>
-        <span class="chip">Online · Todo o Brasil</span>
+        <p>Psicoterapia via videoconferência com a mesma qualidade e sigilo do atendimento presencial. Atendo adultos em todo o Brasil e exterior.</p>
+        <span class="chip">Online · Brasil e Exterior</span>
       </div>
 
       <div class="card fade">
@@ -728,8 +780,8 @@
             <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
         </div>
-        <h3>Orientação Profissional</h3>
-        <p>Processo de autoconhecimento voltado para escolhas de carreira, transições profissionais e desenvolvimento da identidade vocacional.</p>
+        <h3>Orientação de Carreira</h3>
+        <p>Para quem está em transição, indeciso sobre o próximo passo ou quer construir uma trajetória profissional com mais clareza e intenção.</p>
         <span class="chip">Presencial · Online</span>
       </div>
     </div>
@@ -741,76 +793,52 @@
 <!-- ═══════════════════ CONTATO ═══════════════════ -->
 <section class="section" id="contato">
   <div class="container">
-    <div class="contact-grid">
+    <div style="max-width:560px;">
+      <p class="tag">Contato</p>
+      <h2 class="section-title">Vamos dar<br>o primeiro <em>passo</em></h2>
+      <p class="about-text" style="margin-top:.75rem;">
+        Entre em contato para agendar uma consulta ou tirar dúvidas sobre o processo terapêutico.
+      </p>
 
-      <div>
-        <p class="tag">Contato</p>
-        <h2 class="section-title">Vamos dar<br>o primeiro <em>passo</em></h2>
-        <p class="about-text" style="margin-top:.75rem;">
-          Entre em contato para agendar uma consulta ou tirar dúvidas sobre o processo terapêutico. Responderei em até 24 horas.
-        </p>
+      <div class="contact-links">
+        <a href="https://wa.me/5585994394944" class="clink" target="_blank" rel="noopener">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent2)">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <div class="clink-body">
+            <span>WhatsApp</span>
+            <strong>(85) 99439-4944</strong>
+          </div>
+        </a>
 
-        <div class="contact-links">
-          <a href="mailto:jardelsantiago.psi@gmail.com" class="clink">
-            <div class="clink-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <div class="clink-body">
-              <span>E-mail</span>
-              <strong>jardelsantiago.psi@gmail.com</strong>
-            </div>
-          </a>
+        <a href="mailto:jardelsantiago.psi@gmail.com" class="clink">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div class="clink-body">
+            <span>E-mail</span>
+            <strong>jardelsantiago.psi@gmail.com</strong>
+          </div>
+        </a>
 
-          <a href="https://wa.me/5585994394944" class="clink" target="_blank" rel="noopener">
-            <div class="clink-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent2)">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-            </div>
-            <div class="clink-body">
-              <span>WhatsApp</span>
-              <strong>(85) 99439-4944</strong>
-            </div>
-          </a>
-
-          <a href="https://instagram.com/jardelsantiago.psi" class="clink" target="_blank" rel="noopener">
-            <div class="clink-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            </div>
-            <div class="clink-body">
-              <span>Instagram</span>
-              <strong>@jardelsantiago.psi</strong>
-            </div>
-          </a>
-        </div>
+        <a href="https://instagram.com/jardelsantiago.psi" class="clink" target="_blank" rel="noopener">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </div>
+          <div class="clink-body">
+            <span>Instagram</span>
+            <strong>@jardelsantiago.psi</strong>
+          </div>
+        </a>
       </div>
-
-      <div class="fade">
-        <form class="form" onsubmit="sendForm(event)">
-          <div class="field">
-            <label>Nome</label>
-            <input type="text" placeholder="Seu nome completo" required>
-          </div>
-          <div class="field">
-            <label>E-mail ou WhatsApp</label>
-            <input type="text" placeholder="Como prefere ser contatado?" required>
-          </div>
-          <div class="field">
-            <label>Mensagem</label>
-            <textarea rows="5" placeholder="Conte um pouco sobre o que você está buscando..." required></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%;font-size:.9rem;">
-            Enviar mensagem
-          </button>
-        </form>
-      </div>
-
     </div>
   </div>
 </section>
@@ -819,12 +847,11 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">Jardel Santiago · Psicólogo Clínico</div>
-    <div class="footer-copy">CRP 11/16465 &nbsp;·&nbsp; © 2025</div>
+    <div class="footer-copy">CRP 11/16465 &nbsp;·&nbsp; © 2026</div>
   </div>
 </footer>
 
 <script>
-  // fade-in on scroll
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
@@ -836,17 +863,19 @@
     io.observe(el);
   });
 
-  // form feedback
-  function sendForm(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type=submit]');
-    btn.textContent = 'Mensagem enviada ✓';
-    btn.style.cssText = 'background:rgba(143,190,154,.12);color:#8fbe9a;border:1px solid rgba(143,190,154,.3);width:100%;font-size:.9rem;';
-    setTimeout(() => {
-      btn.style.cssText = 'width:100%;font-size:.9rem;';
-      btn.textContent = 'Enviar mensagem';
-      e.target.reset();
-    }, 3500);
+  function toggleMenu(btn) {
+    const open = btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    document.getElementById('nav-drawer').classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    const btn = document.querySelector('.nav-hamburger');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', false);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.body.style.overflow = '';
   }
 </script>
 </body>
